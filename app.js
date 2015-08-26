@@ -1,14 +1,20 @@
-var todoApp = angular.module('todo', ['ngResources', 'ngMockE2E']);
+//MODULE
+var todoApp = angular.module('todoApp', ['ngRoute', 'ngResource']);
 
-weatherApp.config(function($routeProvider){
-	
+
+//ROUTES
+todoApp.config(function($routeProvider){
+
 	$routeProvider
 
 	.when('/', {
-		templateUrl:
+		templateUrl: 'pages/home.html',
+		controller: 'homeController'
 	})
 
 	.when('/todos', {
-		templateUrl: 
+		templateUrl: 'pages/todos.html',
+		controller: 'todosController'
 	})
-})
+
+});
