@@ -1,6 +1,6 @@
 todoApp.directive("todoPanel", function(){
 	return {
-		templateUrl: 'directive/todopanel.html',
+		templateUrl: 'directives/todopanel.html',
 		replace: true
 	}
 })

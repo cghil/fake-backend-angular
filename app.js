@@ -1,5 +1,5 @@
 //MODULE
-var todoApp = angular.module('todoApp', ['ngRoute', 'ngResource']);
+var todoApp = angular.module('todoApp', ['ngRoute', 'ngResource', 'ngMockE2E']);
 
 
 //ROUTES
