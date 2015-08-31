@@ -1,4 +1,4 @@
-todoApp.controller('todosController', ['$scope', '$log', '$http', function($scope, $log, $http) {
+todoApp.controller('todosController', ['$scope', '$log', '$http', '$routeParams', function($scope, $log, $http, $routeParams) {
 
 	$scope.newTodo = '';
 
@@ -33,8 +33,32 @@ todoApp.controller('todosController', ['$scope', '$log', '$http', function($scop
 
     			console.log(data);
 
-    		})
+    		});
 
-    }
+    };
+
+    $scope.isComplete = function(status){
+
+    	if (status === "completed") {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    };
+
+    $scope.changeStatus = function(status, id, description, date){
+
+    	if (status === "completed") {
+    		$http.put('/todos/'+ id, { description: description, status: "incomplete" , id: id, date: date})
+    			.success(function(response){
+    				$scope.todos = response;
+    			});
+    	} else {
+    		$http.put('/todos/'+id, { description: description, status: "completed", id: id, date: date })
+    			.success(function(response){
+    				$scope.todos = response;
+    			});
+    	}
+    };
 
 }]);

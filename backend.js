@@ -4,7 +4,7 @@ todoApp.run(function($httpBackend){
 
 	// $httpBackend.whenGET('/todos').respond(todos);
 
-	todos = [{id: 1, description: 'get milk', status: 'completed'}, {id: 2, description: 'laundry needs to be folded', status: 'incomplete'}, {id: 3, description: 'clean the kitchen', status: 'completed'}];
+	var todos = [{id: 1, description: 'get milk', status: 'completed', date: '7/30/2015'}, {id: 2, description: 'laundry needs to be folded', status: 'incomplete', date: '7/30/2015'}, {id: 3, description: 'clean the kitchen', status: 'completed', date: '7/30/2015'}];
 
     //returns the current list of todos
     $httpBackend.whenGET('/todos').respond(todos);
@@ -17,8 +17,39 @@ todoApp.run(function($httpBackend){
     	return [200, todos];
     });
 
+    $httpBackend.whenGET(/^\/todos\/\d+$/).respond(function(method, url, headers){
+    	// console.log(url);
+    	var regexp = /(\d+)/
+    	var found = url.match(regexp);
+    	var number = found[0];
+    	var todo = '';
+    	for (var i = 0; i < todos.length; i++){
+    		if (todos[i].id == number) {
+    			var todo = todos[i];
+    			break;
+    		}
+    	}
+    	return [200, todo];
+    });
+
+    $httpBackend.whenPUT(/^\/todos\/\d+$/).respond(function(method, url, data){
+    	var regexp =  /(\d+)/;
+    	var found = url.match(regexp);
+    	var number = found[0]
+    	var data = angular.fromJson(data);
+    	for (var i = 0; i < todos.length; i++){
+    		if (todos[i].id == number) {
+    			todos[i] = data;
+    			break;
+    		}
+    	}
+
+    	return [200, todos]
+    });
+
     $httpBackend.whenGET('pages/home.html').passThrough();
     $httpBackend.whenGET('pages/todos.html').passThrough();
+    $httpBackend.whenGET('pages/singletodo.html').passThrough();
     $httpBackend.whenGET('directives/todopanel.html').passThrough();
 
 });
