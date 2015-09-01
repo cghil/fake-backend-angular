@@ -1,4 +1,4 @@
-todoApp.controller('singleTodoController', ['$scope', '$log', '$http', '$routeParams', function($scope, $log, $http, $routeParams) {
+todoApp.controller('showATodoController', ['$scope', '$log', '$http', '$routeParams', function($scope, $log, $http, $routeParams) {
 
 	var params = $routeParams;
 

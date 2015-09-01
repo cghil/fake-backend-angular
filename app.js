@@ -19,7 +19,7 @@ todoApp.config(function($routeProvider){
 
 	.when('/todos/:id', {
 		templateUrl: 'pages/singletodo.html',
-		controller: 'singleTodoController'
+		controller: 'showATodoController'
 	})
 
 });

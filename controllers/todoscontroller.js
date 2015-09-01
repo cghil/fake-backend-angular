@@ -23,7 +23,7 @@ todoApp.controller('todosController', ['$scope', '$log', '$http', '$routeParams'
 
     	var date = month + "/" + day + "/" + year;
 
-    	$http.post('/todos', {description: $scope.newTodo, status: "incomplete", date: date })
+    	$http.post('/todos', {description: $scope.newTodo, status: "incomplete", date: date, showDelete: false })
     		.success(function(response){
     			
     			$scope.todos = response;
@@ -49,16 +49,26 @@ todoApp.controller('todosController', ['$scope', '$log', '$http', '$routeParams'
     $scope.changeStatus = function(status, id, description, date){
 
     	if (status === "completed") {
-    		$http.put('/todos/'+ id, { description: description, status: "incomplete" , id: id, date: date})
+    		$http.put('/todos/'+ id, { description: description, status: "incomplete" , id: id, date: date, showDelete: false})
     			.success(function(response){
     				$scope.todos = response;
     			});
     	} else {
-    		$http.put('/todos/'+id, { description: description, status: "completed", id: id, date: date })
+    		$http.put('/todos/'+id, { description: description, status: "completed", id: id, date: date, showDelete: false })
     			.success(function(response){
     				$scope.todos = response;
     			});
     	}
     };
+
+    $scope.hover = function(todo){
+    	return todo.showDelete = ! todo.showDelete;
+    }
+
+    $scope.delete = function(todo){
+    	$http.delete('/todos/'+ todo.id).success(function(response){
+    		$scope.todos = response;
+    	})
+    }
 
 }]);
