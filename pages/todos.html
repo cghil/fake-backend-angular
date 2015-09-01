@@ -1,13 +1,20 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <div class="form-group">
-            <h1>Todo List</h1>
-            <form role="form">
-                <input type="text" class="form-control" placeholder="Your Task" name="task" ng-model="newTodo">
-            </form>
-            <button type="button" class="btn btn-primary" ng-click="addATodo()">Add</button>
+        <h1>Todo List</h1>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <form role="form">
+                        <input type="text" class="form-control" placeholder="Your Task" name="task" ng-model="newTodo">
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" ng-click="addATodo()">Add</button>
+                </div>
+            </div>
         </div>
-        <div class="list-group">
+        <br>
+        <div class="list-group" id="todos-list">
             <todo-panel ng-repeat="todo in todos"></todo-panel>
         </div>
     </div>
