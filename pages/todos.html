@@ -17,5 +17,19 @@
         <div class="list-group" id="todos-list">
             <todo-panel ng-repeat="todo in todos"></todo-panel>
         </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">Info About Todos</div>
+            <div class="panel-body">
+                <div class="row text-center">
+                    <div class="col-md-2">
+                        Active: {{numberOfActiveTodos()}}
+                    </div>
+                    <div class="col-md-2">Finished: {{numberOfFinishedTodos()}}</div>
+                    <div class="col-md-2">
+                        Total: {{totalTodos(todos)}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
