@@ -62,13 +62,80 @@ todoApp.controller('todosController', ['$scope', '$log', '$http', '$routeParams'
     };
 
     $scope.hover = function(todo){
+
     	return todo.showDelete = ! todo.showDelete;
-    }
+
+    };
 
     $scope.delete = function(todo){
+    	
     	$http.delete('/todos/'+ todo.id).success(function(response){
     		$scope.todos = response;
-    	})
-    }
+    	});
+
+    };
+
+    $scope.numberOfActiveTodos = function(){
+
+    	
+    	var todos = $scope.todos;
+
+    	if (todos !== undefined){
+
+	    	function filterForActiveTodos(todos){
+
+	    		var activeTodos = [];
+	    		todos.forEach(function(todo){
+
+	    			if (todo.status === "incomplete") {
+	    				activeTodos.push(todo);
+	    			}
+
+	    		});
+	    		return activeTodos;
+	    	};
+
+	    	var activeTodos = filterForActiveTodos(todos);
+
+	    	return activeTodos.length;
+    	} else {
+    		return 0;
+    	}
+
+    };
+
+    $scope.numberOfFinishedTodos = function(){
+    	var todos = $scope.todos;
+
+    	if (todos !== undefined) {
+    		function filterForFinishedTodos(todos){
+
+    			var finishedTodos = [];
+
+    			todos.forEach(function(todo){
+
+    				if (todo.status === "completed") {
+    					finishedTodos.push(todo);
+    				}
+    			});
+
+    			return finishedTodos;
+
+    		}
+    		var finishedTodos = filterForFinishedTodos(todos);
+
+    		return finishedTodos.length;
+    	} else {
+    		return 0;
+    	}
+    };
+
+    $scope.totalTodos = function(todos){
+    	if (todos === undefined) {
+    		return 0;
+    	} else {
+    		return todos.length
+    	}
+    };
 
 }]);
