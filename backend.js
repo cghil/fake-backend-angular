@@ -1,10 +1,20 @@
 todoApp.run(function($httpBackend){
-	
-	// var todos = [{description: 'Get milk', status: 'completed'}, {description: 'Write letter to mom', status: 'incomplete'}];
 
-	// $httpBackend.whenGET('/todos').respond(todos);
+    function todosInStorage(){
+    	if (localStorage.getItem('todos') === null) {
+    		var todos = [];
+    	} else {
+	        var todos = JSON.parse(localStorage['todos']);
+	        var todos = todos;
+    	}
+    	return todos;
+    };
 
-	var todos = [{id: 1, description: 'get milk', status: 'completed', date: '7/30/2015', showDelete: false}, {id: 2, description: 'laundry needs to be folded', status: 'incomplete', date: '7/30/2015', showDelete: false}, {id: 3, description: 'clean the kitchen', status: 'completed', date: '7/30/2015', showDelete: false}];
+    function setTodosInStorage(todos){
+        localStorage.setItem("todos", JSON.stringify(todos));
+    };
+
+    var todos = todosInStorage();
 
     //returns the current list of todos
     $httpBackend.whenGET('/todos').respond(todos);
@@ -14,6 +24,7 @@ todoApp.run(function($httpBackend){
     	var id = todos.length + 1;
     	todo.id = id;
     	todos.unshift(todo);
+        setTodosInStorage(todos);
     	return [200, todos];
     });
 
@@ -43,7 +54,7 @@ todoApp.run(function($httpBackend){
     			break;
     		}
     	}
-
+        setTodosInStorage(todos);
     	return [200, todos]
     });
 
@@ -59,6 +70,7 @@ todoApp.run(function($httpBackend){
     			break;
     		}
     	}
+        setTodosInStorage(todos);
     	return [200, todos]
     })
 

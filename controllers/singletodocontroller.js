@@ -9,6 +9,5 @@ todoApp.controller('showATodoController', ['$scope', '$log', '$http', '$routePar
 		.then(function(response){
 			$scope.todo = response.data;
 		})
-	// $scope.todo = ;
 
 }]);
